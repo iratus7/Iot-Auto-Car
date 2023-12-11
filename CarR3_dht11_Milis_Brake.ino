@@ -29,9 +29,9 @@ int distance;
 int safetyDistance;
 
 //milis time events
-const long eventTime_carControl = 300;
+const long eventTime_carControl = 50;
 const long eventTime_dhtSensor = 10000;
-const long eventTime_distanceSensor = 400;
+const long eventTime_distanceSensor = 40;
 
 unsigned long previousTime_carControl,previousTime_dhtSensor,previousTime_distanceSensor = 0;
 
@@ -209,8 +209,7 @@ void dhtSensor(){
     String str3 = String(f, 2);
       
     String my_String = "{'data':[{'data1':'"+str1+"','data2':'"+str2+"','data3':'"+str3+"'}]}";
-    Serial.println(my_String);  
-    
+    Serial.println(my_String);    
 }
 
 void distanceSensor(){
@@ -231,7 +230,7 @@ distance= duration*0.034/2;
 
 safetyDistance = distance;
 
-if (safetyDistance <= 10 || safetyDistance == 1189){
+if (safetyDistance <= 40 || safetyDistance == 1189){
   digitalWrite(buzzer, HIGH);
   analogWrite(redPin, 0);
   analogWrite(greenPin, 255);
@@ -239,9 +238,9 @@ if (safetyDistance <= 10 || safetyDistance == 1189){
 
   //stop the car
   digitalWrite(m1a, LOW);
-  digitalWrite(m2a, LOW);
+  digitalWrite(m2a, LOW);delay(700);
 }
-else if(safetyDistance > 45){
+else if(safetyDistance > 80){
   digitalWrite(buzzer, LOW);
   analogWrite(redPin, 255);
   analogWrite(greenPin, 0);
@@ -255,7 +254,7 @@ else {
 }
 
 // Prints the distance on the Serial Monitor
-Serial.print("Distance: ");
-Serial.println(distance);
+//Serial.print("Distance: ");
+//Serial.println(distance);
 }
 
